@@ -2,16 +2,18 @@ package com.monefy.app.entities;
 
 import com.monefy.app.enums.CategoryType;
 import com.monefy.app.items.CategoryItem;
-import com.monefy.app.items.TransactionItem;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity(name = "category")
+@EntityListeners(AuditingEntityListener.class)
 public class EdsCategory {
 
     @Id

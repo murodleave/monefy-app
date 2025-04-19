@@ -3,11 +3,14 @@ package com.monefy.app.entities;
 
 import com.monefy.app.items.TransactionItem;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity(name = "transaction")
+@EntityListeners(AuditingEntityListener.class)
 public class EdsTransaction {
 
     @Id
