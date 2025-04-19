@@ -1,14 +1,15 @@
 package com.monefy.app.services;
 
+import com.monefy.app.entities.EdsTransaction;
 import com.monefy.app.items.TransactionItem;
 
 import java.util.List;
 
 public interface TransactionService {
 
-    TransactionItem create(TransactionItem dto);
+    TransactionItem save(TransactionItem item);
 
-    List<TransactionItem> getAllByUser(Integer userId);
+    List<EdsTransaction> findAll();
 
     void delete(Integer id);
 }

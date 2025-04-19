@@ -1,13 +1,16 @@
 package com.monefy.app.items;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 public class TransactionItem {
 
     private Integer transactionId;
     private Integer categoryID;
-    private Integer userID;
-    private String amount;
-    private String date;
-    private String description;
+    private Integer accountID;
+    private BigDecimal amount;
+    private LocalDateTime date;
+    private String note;
 
     public Integer getTransactionId() {
         return transactionId;
@@ -25,35 +28,35 @@ public class TransactionItem {
         this.categoryID = categoryID;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getAccountID() {
+        return accountID;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setAccountID(Integer accountID) {
+        this.accountID = accountID;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public String getNote() {
+        return note;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNote(String note) {
+        this.note = note;
     }
 }

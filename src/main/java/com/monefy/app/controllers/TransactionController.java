@@ -24,7 +24,7 @@ public class TransactionController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("transactions", service.getAllByUser(null));
+        model.addAttribute("transactions", service.findAll());
         return "transaction/list";
     }
 
@@ -38,7 +38,7 @@ public class TransactionController {
     @PostMapping
     public String save(TransactionItem f, BindingResult br) {
         if (br.hasErrors()) return "transaction/form";
-        service.create(f);
+        service.save(f);
         return "redirect:/transactions";
     }
 }

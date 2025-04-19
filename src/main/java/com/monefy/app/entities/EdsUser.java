@@ -1,5 +1,6 @@
 package com.monefy.app.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,12 +21,15 @@ public class EdsUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer objectID;
 
     private String username;
 
     private String password;
 
+    @Column(name = "created_date")
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     public Integer getObjectID() {
         return objectID;
@@ -34,6 +39,7 @@ public class EdsUser implements UserDetails {
         this.objectID = objectID;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -42,12 +48,21 @@ public class EdsUser implements UserDetails {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

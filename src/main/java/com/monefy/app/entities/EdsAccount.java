@@ -1,13 +1,9 @@
 package com.monefy.app.entities;
 
-import com.monefy.app.enums.CategoryType;
-import com.monefy.app.items.CategoryItem;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,9 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "category")
+@Entity(name = "account")
 @EntityListeners(AuditingEntityListener.class)
-public class EdsCategory {
+public class EdsAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,19 +32,7 @@ public class EdsCategory {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private CategoryType type;
-
-    @ManyToOne
-    @JoinColumn(name = "parent_category_id")
-    private EdsCategory parentCategory;
-
-    @OneToMany(mappedBy = "parentCategory",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private Set<EdsCategory> children = new HashSet<>();
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EdsTransaction> transactions = new HashSet<>();
 
 
@@ -84,45 +68,11 @@ public class EdsCategory {
         this.description = description;
     }
 
-    public CategoryType getType() {
-        return type;
-    }
-
-    public void setType(CategoryType type) {
-        this.type = type;
-    }
-
-    public EdsCategory getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(EdsCategory parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-
-    public Set<EdsCategory> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<EdsCategory> children) {
-        this.children = children;
-    }
-
     public Set<EdsTransaction> getTransactions() {
         return transactions;
     }
 
     public void setTransactions(Set<EdsTransaction> transactions) {
         this.transactions = transactions;
-    }
-
-    public CategoryItem toDto() {
-        CategoryItem categoryItem = new CategoryItem();
-        categoryItem.setCategoryID(getObjectID());
-        categoryItem.setUserID(getUser() != null ? getUser().getObjectID() : null);
-        categoryItem.setName(getName());
-        categoryItem.setDescription(getDescription());
-        categoryItem.setCategoryType(getType() != null ? getType().name() : null);
-        return categoryItem;
     }
 }
