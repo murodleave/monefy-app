@@ -16,10 +16,14 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    private final CategoryRepo categoryRepo;
+    private final UserRepo userRepo;
+
     @Autowired
-    private CategoryRepo categoryRepo;
-    @Autowired
-    private UserRepo userRepo;
+    public CategoryServiceImpl(CategoryRepo categoryRepo, UserRepo userRepo) {
+        this.categoryRepo = categoryRepo;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public CategoryItem create(CategoryItem dto) {

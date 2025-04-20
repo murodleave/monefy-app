@@ -1,11 +1,13 @@
 package com.monefy.app.auth;
 
+import com.monefy.app.auth.dtos.LoginUser;
 import com.monefy.app.auth.dtos.RegisterRequest;
 import com.monefy.app.entities.EdsUser;
 import com.monefy.app.repos.UserRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,4 +34,10 @@ public class AuthController {
         userRepo.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered");
     }
+
+//    @GetMapping("/login")
+//    public Model loginForm(Model model) {
+//        model.addAttribute("loginUser", new LoginUser());
+//        return model;
+//    }
 }

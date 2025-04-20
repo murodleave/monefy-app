@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="bg-light d-flex align-items-center" style="height:100vh;">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <form method="post" class="card card-body">
-                <h3 class="text-center mb-3">Login</h3>
-                <input class="form-control mb-2" type="text" name="username" placeholder="Username"/>
-                <input class="form-control mb-3" type="password" name="password" placeholder="Password"/>
-                <button class="btn btn-primary w-100" type="submit">Sign in</button>
-            </form>
-        </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>Login – Monefy App</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+            rel="stylesheet"
+    >
+    <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+    >
+</head>
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <h2>Monefy</h2>
+        <p class="subtitle">Учет личных финансов</p>
+        <form th:action="@{/login}" method="post" th:object="${loginUser}">
+            <div class="input-group">
+                <span class="material-icons">person</span>
+                <label>
+                    <input
+                            type="text"
+                            th:field="*{username}"
+                            placeholder="Имя пользователя"
+                            required
+                    />
+                </label>
+            </div>
+            <div class="input-group">
+                <span class="material-icons">lock</span>
+                <label>
+                    <input
+                            type="password"
+                            th:field="*{password}"
+                            placeholder="Пароль"
+                            required
+                    />
+                </label>
+            </div>
+            <button type="submit">Войти</button>
+        </form>
+        <p class="footer-text">
+            Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a>
+        </p>
     </div>
 </div>
 </body>

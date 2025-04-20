@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity(name = "transaction")
-@Table(indexes = @Index(name = "ix_tx_account_date", columnList = "account_id, tx_date"))
 @EntityListeners(AuditingEntityListener.class)
 public class EdsTransaction {
 
