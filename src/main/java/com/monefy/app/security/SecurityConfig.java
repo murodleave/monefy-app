@@ -20,14 +20,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**", "/register", "/registerFromApi").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginPage("/")
+                        .loginProcessingUrl("/authenticate")
                         .defaultSuccessUrl("/dashboard", true)
-                        .failureUrl("/login")
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
@@ -35,7 +35,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

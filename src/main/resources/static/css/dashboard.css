@@ -1,0 +1,189 @@
+/* Сброс и базовые стили */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f6faf7;
+    color: #333;
+}
+
+/* Header */
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.logo-header {
+    display: flex;
+    align-items: center;
+}
+.logo-header img {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5rem;
+}
+.logo-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #27ae60;
+}
+.btn-logout {
+    background: none;
+    border: 1px solid #27ae60;
+    color: #27ae60;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-logout:hover {
+    background: #27ae60;
+    color: #fff;
+}
+
+/* Основной контент */
+.dash-main {
+    padding: 2rem;
+}
+
+/* Карточки с итогами */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+}
+.card h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+}
+.card p {
+    margin: 0.5rem 0 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #27ae60;
+}
+
+/* Секция графика */
+.chart-section {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+.chart-section h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;  /* ограничение ширины */
+    height: 300px;     /* фиксированная высота */
+    margin: 0 auto;    /* центрируем */
+}
+
+/* Последние транзакции */
+.tx-table {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.tx-table h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+.tx-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+.tx-table th,
+.tx-table td {
+    padding: 0.75rem;
+    text-align: left;
+}
+.tx-table th {
+    background: #f0f4f2;
+    font-weight: 600;
+}
+.tx-table tr:not(:last-child) td {
+    border-bottom: 1px solid #eee;
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Заголовок секции + кнопка */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.btn-primary {
+    background: #27ae60;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-primary:hover {
+    background: #1e8449;
+}
+.btn-secondary {
+    background: #ddd;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.btn-secondary:hover {
+    background: #ccc;
+}
+.btn-link {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.tx-form label {
+    display: block;
+    margin: 0.75rem 0 0.25rem;
+}
+.tx-form input,
+.tx-form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.tx-form button {
+    margin-top: 1rem;
+}

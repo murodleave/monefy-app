@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org">
+<head layout:fragment="head(title)">
+    <title>Новая операция – Monefy</title>
+</head>
+<body layout:decorate="~{fragments/layout :: head('Новая операция')}">
+<div layout:fragment="content" class="dash-main">
+    <h2>Добавить операцию</h2>
+    <form th:action="@{/transactions}" th:object="${tx}" method="post" class="tx-form">
+        <label>Дата:</label>
+        <input type="date" th:field="*{date}" required/>
+
+        <label>Сумма:</label>
+        <input type="number" step="0.01" th:field="*{amount}" required/>
+
+        <label>Категория:</label>
+        <select th:field="*{categoryId}" required>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.id}"
+                    th:text="${cat.name}"></option>
+        </select>
+
+        <label>Описание:</label>
+        <input type="text" th:field="*{description}" />
+
+        <button type="submit" class="btn-primary">Сохранить</button>
+        <a th:href="@{/transactions}" class="btn-secondary">Отмена</a>
+    </form>
+</div>
+</body>
+</html>

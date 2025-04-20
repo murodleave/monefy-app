@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/base}">
-<main layout:fragment="content">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Transactions</h2>
-        <a class="btn btn-primary" th:href="@{/transactions/new}">+ Add</a>
+      xmlns:layout="http://www.thymeleaf.org">
+<head layout:fragment="head(title)">
+    <title>Операции – Monefy</title>
+</head>
+<body layout:decorate="~{fragments/layout :: head('Операции')}">
+<div layout:fragment="content" class="dash-main">
+    <div class="section-header">
+        <h2>Операции</h2>
+        <a th:href="@{/transactions/new}" class="btn-primary">Добавить операцию</a>
     </div>
-
-    <table class="table table-striped">
+    <table class="tx-table">
         <thead>
-        <tr>
-            <th>Date</th><th>Category</th><th class="text-end">Amount</th>
-        </tr>
+        <tr><th>Дата</th><th>Категория</th><th>Сумма</th><th>Действия</th></tr>
         </thead>
         <tbody>
-        <tr th:each="tx : ${transactions}">
-            <td th:text="${#temporals.format(tx.date,'yyyy-MM-dd')}"></td>
-            <td th:text="${tx.categoryName}"></td>
-            <td class="text-end" th:text="${tx.amount}"></td>
+        <tr th:each="tx : ${txList}">
+            <td th:text="${#dates.format(tx.date,'dd.MM.yyyy')}"></td>
+            <td th:text="${tx.category.name}"></td>
+            <td th:text="${tx.amount} + ' ₹'"></td>
+            <td>
+                <form th:action="@{/transactions/{id}/delete(id=${tx.id})}" method="post">
+                    <button type="submit" class="btn-link">Удалить</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-</main>
+</div>
+</body>
 </html>

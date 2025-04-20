@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard – Monefy</title>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="dash-header">
+    <div class="logo-header">
+        <img th:src="@{/images/monefy_logo.png}" alt="Monefy Logo"/>
+        <h1>Dashboard</h1>
+    </div>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn-logout">Выйти</button>
+    </form>
+</header>
+
+<main class="dash-main">
+    <!-- Итоговые карточки -->
+    <section class="cards">
+        <div class="card">
+            <h3>Баланс</h3>
+            <p th:text="${balance}">0 ₸</p>
+        </div>
+        <div class="card">
+            <h3>Доходы (мес.)</h3>
+            <p th:text="${income}">0 ₸</p>
+        </div>
+        <div class="card">
+            <h3>Расходы (мес.)</h3>
+            <p th:text="${expense}">0 ₸</p>
+        </div>
+    </section>
+
+    <!-- График расходов по категориям -->
+    <section class="chart-section">
+        <h2>Расходы по категориям</h2>
+        <div class="chart-wrapper">
+            <canvas id="catChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Последние транзакции -->
+    <section class="tx-table">
+        <h2>Последние операции</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Категория</th>
+                <th>Сумма</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tx : ${recentTx}">
+                <td th:text="${#dates.format(tx.date,'dd.MM.yyyy')}">01.01.2025</td>
+                <td th:text="${tx.category.name}">Food</td>
+                <td th:text="${tx.amount} + ' ₸'">0 ₸</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script>
+    const ctx = document.getElementById('catChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: /*[[${byCategory.keySet()}]]*/ ['Food','Transport','Shopping','Bills'],
+            datasets: [{
+                data: /*[[${byCategory.values()}]]*/ [40000,20000,30000,33456.78],
+                backgroundColor: ['#27ae60','#2ecc71','#58d68d','#82e0aa']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,    // отключает растягивание
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+</body>
+</html>

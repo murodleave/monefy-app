@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Фрагмент для вывода ошибки одного поля -->
+<div th:fragment="fieldError (errors, fieldName)">
+    <div class="error"
+         th:if="${errors != null and errors.containsKey(fieldName)}"
+         th:text="${errors[fieldName]}">
+    </div>
+</div>
+
+<!-- Фрагмент для вывода всех ошибок вверху формы -->
+<div th:fragment="allErrors (errors)">
+    <div class="error-list" th:if="${errors != null and !errors.isEmpty()}">
+        <ul>
+            <li th:each="e : ${errors.values()}" th:text="${e}"></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
