@@ -1,6 +1,6 @@
 package com.monefy.app.auth.dtos;
 
-public class LoginUser {
+public class LoginUserForm {
 
     private String username;
 

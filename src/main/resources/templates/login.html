@@ -2,51 +2,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Login – Monefy App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход – Monefy</title>
     <link rel="stylesheet" href="/css/login.css" />
     <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
             rel="stylesheet"
-    >
+    />
     <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-    >
+    />
 </head>
 <body>
 <div class="login-container">
     <div class="login-card">
-        <h2>Monefy</h2>
+
+        <!-- Логотип + заголовок -->
+        <div class="logo-header">
+            <img th:src="@{/images/monefy_logo.png}" alt="Monefy Logo" />
+            <h2>Monefy</h2>
+        </div>
         <p class="subtitle">Учет личных финансов</p>
-        <form th:action="@{/login}" method="post" th:object="${loginUser}">
+
+        <form th:action="@{/authenticate}" th:object="${loginUser}" method="post">
+            <!-- Username -->
             <div class="input-group">
                 <span class="material-icons">person</span>
-                <label>
-                    <input
-                            type="text"
-                            th:field="*{username}"
-                            placeholder="Имя пользователя"
-                            required
-                    />
-                </label>
+                <input
+                        type="text"
+                        th:field="*{username}"
+                        placeholder="Имя пользователя"
+                        required
+                />
+
+                <div class="error"
+                     th:if="${errors != null and errors.username != null}"
+                     th:text="${errors.username}">
+                </div>
             </div>
-            <div class="input-group">
+            <div class="error"
+                 th:if="${#fields.hasErrors('username')}"
+                 th:errors="*{username}"></div>
+
+            <!-- Password -->
+            <div class="input-group password-group">
                 <span class="material-icons">lock</span>
-                <label>
-                    <input
-                            type="password"
-                            th:field="*{password}"
-                            placeholder="Пароль"
-                            required
-                    />
-                </label>
+                <input
+                        type="password"
+                        th:field="*{password}"
+                        placeholder="Пароль"
+                        required
+                />
+                <span class="material-icons toggle-password"
+                      onclick="togglePasswordVisibility()">
+                    visibility
+                </span>
+                <div class="error"
+                     th:if="${errors != null and errors.password != null}"
+                     th:text="${errors.password}">
+                </div>
             </div>
+            <div class="error"
+                 th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}"></div>
+
+            <!-- Forgot -->
+            <div class="options">
+                <a th:href="@{/forgot-password}" class="forgot-link">Забыли пароль?</a>
+            </div>
+
+            <!-- Submit -->
             <button type="submit">Войти</button>
+            <div class="error"
+                 th:if="${errors != null and errors.global != null}"
+                 th:text="${errors.global}">
+            </div>
         </form>
+
+
         <p class="footer-text">
             Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a>
         </p>
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility() {
+        const pwd = document.querySelector('.password-group input');
+        const icon = document.querySelector('.toggle-password');
+        if (pwd.type === 'password') {
+            pwd.type = 'text';
+            icon.textContent = 'visibility_off';
+        } else {
+            pwd.type = 'password';
+            icon.textContent = 'visibility';
+        }
+    }
+</script>
 </body>
 </html>
