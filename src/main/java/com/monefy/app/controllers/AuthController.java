@@ -4,21 +4,24 @@ import com.monefy.app.auth.dtos.LoginUserForm;
 import com.monefy.app.auth.dtos.RegisterRequest;
 import com.monefy.app.entities.EdsUser;
 import com.monefy.app.repos.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class AuthController {
 
     private final UserRepo userRepo;
     private final PasswordEncoder encoder;
 
+    @Autowired
     public AuthController(UserRepo userRepo, PasswordEncoder encoder) {
         this.userRepo = userRepo;
         this.encoder = encoder;
@@ -26,24 +29,23 @@ public class AuthController {
 
     @GetMapping("/login")
     public Model loginForm(Model model) {
-        model.addAttribute("loginUser", new LoginUserForm());
+        model.addAttribute("loginUserForm", new LoginUserForm());
         return model;
     }
 
-    @PostMapping("/authenticate")
-    public String loginSubmit(@ModelAttribute("loginUser") LoginUserForm loginUser, Model model) {
+    @GetMapping("/")
+    public String homeForm() {
+        return "redirect:/login";
+    }
 
-        Map<String, String> errors = new HashMap<>();
-        if (loginUser.getUsername() == null || loginUser.getUsername().trim().isEmpty()) {
-            errors.put("username", "Пожалуйста, введите имя пользователя");
-        }
-        if (loginUser.getPassword() == null || loginUser.getPassword().trim().isEmpty()) {
-            errors.put("password", "Пожалуйста, введите пароль");
-        }
+    @PostMapping("/login")
+    public String loginSubmit(@ModelAttribute("loginUserForm") LoginUserForm loginUserForm, Model model) {
 
-        if (!errors.isEmpty()) {
-            model.addAttribute("errors", errors);
-            return "login";
+        if (loginUserForm.getUsername() == null || loginUserForm.getUsername().trim().isEmpty()) {
+            return "/login";
+        }
+        if (loginUserForm.getPassword() == null || loginUserForm.getPassword().trim().isEmpty()) {
+            return "/login";
         }
 
         // TODO: здесь ваша логика аутентификации, например:

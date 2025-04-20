@@ -18,15 +18,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/js/**").permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(auth ->
+                        auth
+                                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/authenticate")
-                        .defaultSuccessUrl("/", true)
+                        .loginPage("/")
+                        .defaultSuccessUrl("/dashboard", true)
                         .failureUrl("/login")
+                        .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
         return http.build();
