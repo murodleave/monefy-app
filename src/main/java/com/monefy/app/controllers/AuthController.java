@@ -50,20 +50,20 @@ public class AuthController {
     @PostMapping("/register")
     public String registerSubmit(@ModelAttribute("registerUserForm") RegisterUserForm form, Model model) {
 
-        Map<String,String> errors = new HashMap<>();
-        if (form.getUsername()==null || form.getUsername().trim().isEmpty())
-            errors.put("username","Введите имя пользователя");
+        Map<String, String> errors = new HashMap<>();
+        if (form.getUsername() == null || form.getUsername().trim().isEmpty())
+            errors.put("username", "Введите имя пользователя");
         else if (userRepo.existsByUsername(form.getUsername()))
-            errors.put("username","Это имя уже занято");
+            errors.put("username", "Это имя уже занято");
 
-        if (form.getPassword()==null || form.getPassword().isEmpty())
-            errors.put("password","Введите пароль");
+        if (form.getPassword() == null || form.getPassword().isEmpty())
+            errors.put("password", "Введите пароль");
 
         if (!Objects.equals(form.getPassword(), form.getConfirmPassword()))
-            errors.put("confirmPassword","Пароли не совпадают");
+            errors.put("confirmPassword", "Пароли не совпадают");
 
         if (!errors.isEmpty()) {
-            model.addAttribute("errors",errors);
+            model.addAttribute("errors", errors);
             return "register";
         }
 
