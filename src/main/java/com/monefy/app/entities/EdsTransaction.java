@@ -1,16 +1,13 @@
 package com.monefy.app.entities;
 
 
-import com.monefy.app.items.TransactionItem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -25,25 +22,24 @@ public class EdsTransaction {
     @Column(name = "id")
     private Integer objectID;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "account_id")
-    private EdsAccount account;
+    @Column(nullable = false, precision = 18, scale = 2)
+    private BigDecimal amount;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private EdsCategory category;
 
-    @Column(nullable = false, precision = 18, scale = 2)
-    private BigDecimal amount;
-
     @Column(name = "transaction_date")
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now();
 
-    private String note;
+    private String description;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private EdsUser user;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
-
 
     public Integer getObjectID() {
         return objectID;
@@ -51,22 +47,6 @@ public class EdsTransaction {
 
     public void setObjectID(Integer objectID) {
         this.objectID = objectID;
-    }
-
-    public EdsAccount getAccount() {
-        return account;
-    }
-
-    public void setAccount(EdsAccount account) {
-        this.account = account;
-    }
-
-    public EdsCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(EdsCategory category) {
-        this.category = category;
     }
 
     public BigDecimal getAmount() {
@@ -77,6 +57,14 @@ public class EdsTransaction {
         this.amount = amount;
     }
 
+    public EdsCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EdsCategory category) {
+        this.category = category;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
@@ -85,12 +73,20 @@ public class EdsTransaction {
         this.date = date;
     }
 
-    public String getNote() {
-        return note;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public EdsUser getUser() {
+        return user;
+    }
+
+    public void setUser(EdsUser user) {
+        this.user = user;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -99,16 +95,5 @@ public class EdsTransaction {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public TransactionItem toDto() {
-        TransactionItem transactionItem = new TransactionItem();
-        transactionItem.setTransactionId(getObjectID());
-        transactionItem.setCategoryID(getCategory() != null ? getCategory().getObjectID() : null);
-        transactionItem.setAccountID(getAccount() != null ? getAccount().getObjectID() : null);
-        transactionItem.setAmount(getAmount());
-        transactionItem.setDate(getDate());
-        transactionItem.setNote(getNote());
-        return transactionItem;
     }
 }

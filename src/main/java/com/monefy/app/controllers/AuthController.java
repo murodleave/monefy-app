@@ -1,8 +1,8 @@
 package com.monefy.app.controllers;
 
-import com.monefy.app.auth.dtos.LoginUserForm;
-import com.monefy.app.auth.dtos.RegisterRequest;
-import com.monefy.app.auth.dtos.RegisterUserForm;
+import com.monefy.app.dtos.LoginUserForm;
+import com.monefy.app.dtos.RegisterRequest;
+import com.monefy.app.dtos.RegisterUserForm;
 import com.monefy.app.entities.EdsUser;
 import com.monefy.app.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class AuthController {
         Map<String, String> errors = new HashMap<>();
         if (form.getUsername() == null || form.getUsername().trim().isEmpty())
             errors.put("username", "Введите имя пользователя");
-        else if (userRepo.existsByUsername(form.getUsername()))
+        else if (userRepo.getByUsername(form.getUsername()) != null)
             errors.put("username", "Это имя уже занято");
 
         if (form.getPassword() == null || form.getPassword().isEmpty())
@@ -78,7 +78,7 @@ public class AuthController {
     @PostMapping("/registerFromApi")
     public ResponseEntity<String> register(@RequestBody RegisterRequest r) {
 
-        if (userRepo.existsByUsername(r.username()))
+        if (userRepo.getByUsername(r.username()) != null)
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username taken");
 
         EdsUser user = new EdsUser();

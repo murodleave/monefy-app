@@ -24,15 +24,15 @@
     <section class="cards">
         <div class="card">
             <h3>Баланс</h3>
-            <p th:text="${balance}">0 ₸</p>
+            <p th:text="${balance}">0 UZS</p>
         </div>
         <div class="card">
             <h3>Доходы (мес.)</h3>
-            <p th:text="${income}">0 ₸</p>
+            <p th:text="${income}">0 UZS</p>
         </div>
         <div class="card">
             <h3>Расходы (мес.)</h3>
-            <p th:text="${expense}">0 ₸</p>
+            <p th:text="${expense}">0 UZS</p>
         </div>
     </section>
 
@@ -59,7 +59,7 @@
             <tr th:each="tx : ${recentTx}">
                 <td th:text="${#dates.format(tx.date,'dd.MM.yyyy')}">01.01.2025</td>
                 <td th:text="${tx.category.name}">Food</td>
-                <td th:text="${tx.amount} + ' ₸'">0 ₸</td>
+                <td th:text="${tx.amount} + ' UZS'">0 UZS</td>
             </tr>
             </tbody>
         </table>

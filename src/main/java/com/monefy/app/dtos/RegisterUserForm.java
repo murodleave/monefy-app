@@ -1,4 +1,4 @@
-package com.monefy.app.auth.dtos;
+package com.monefy.app.dtos;
 
 public class RegisterUserForm {
     private String username;

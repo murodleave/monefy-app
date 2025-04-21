@@ -1,4 +1,4 @@
-package com.monefy.app.auth.dtos;
+package com.monefy.app.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ public class TransactionForm {
 
     private BigDecimal amount;
 
-    private Long categoryId;
+    private Integer categoryId;
 
     private String description;
 
@@ -29,11 +29,11 @@ public class TransactionForm {
         this.amount = amount;
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
